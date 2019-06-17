@@ -135,6 +135,30 @@ android {
             }
         }
     }
+
+    flavorDimensions "client", "server"
+    productFlavors {
+        client1 {
+            dimension "client"
+            applicationIdSuffix ".client1"
+        }
+        client2 {
+            dimension "client"
+            applicationIdSuffix ".client2"
+        }
+        dev {
+            dimension "server"
+            applicationIdSuffix ".dev"
+        }
+        qa {
+            dimension "server"
+            applicationIdSuffix ".qa"
+        }
+        prod {
+            dimension "server"
+            applicationIdSuffix ".prod"
+        }
+    }
 }
 
 dependencies {
