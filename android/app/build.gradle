@@ -1,5 +1,13 @@
 apply plugin: "com.android.application"
 
+project.ext.envConfigFiles = [
+    clientonedevdebug: ".env.clientone.dev.debug",
+    clientoneproddebug: ".env.clientone.prod.debug",
+    clienttwodevdebug: ".env.clienttwo.dev.debug"
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
 import com.android.build.OutputFile
 
 /**
@@ -107,6 +115,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        resValue "string", "build_config_package", "com.rn_test"
     }
     splits {
         abi {
@@ -149,13 +158,13 @@ android {
 
     flavorDimensions "client", "server"
     productFlavors {
-        client1 {
+        clientOne {
             dimension "client"
-            applicationIdSuffix ".client1"
+            applicationIdSuffix ".clientone"
         }
-        client2 {
+        clientTwo {
             dimension "client"
-            applicationIdSuffix ".client2"
+            applicationIdSuffix ".clienttwo"
         }
         dev {
             dimension "server"
@@ -173,6 +182,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-config')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
